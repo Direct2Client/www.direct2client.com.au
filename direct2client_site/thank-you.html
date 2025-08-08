@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thank You - Direct2Client</title>
+  <meta name="description" content="Thank you for contacting Direct2Client. We'll be in touch soon.">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css">
+  
+  <style>
+    .thank-you-container {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--color-white) 0%, var(--color-bg-light) 100%);
+      padding: var(--spacing-lg);
+    }
+    
+    .thank-you-card {
+      background: var(--color-white);
+      border-radius: var(--radius-lg);
+      padding: var(--spacing-xxl);
+      box-shadow: var(--shadow-lg);
+      max-width: 600px;
+      text-align: center;
+      animation: fadeInUp 0.8s ease-out;
+    }
+    
+    .thank-you-icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto var(--spacing-lg);
+      background: linear-gradient(135deg, #4ade80, #22c55e);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      color: white;
+      animation: scaleIn 0.6s ease-out 0.2s both;
+    }
+    
+    @keyframes scaleIn {
+      from {
+        transform: scale(0);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+    
+    .thank-you-card h1 {
+      margin-bottom: var(--spacing-md);
+      animation: fadeInUp 0.8s ease-out 0.3s both;
+    }
+    
+    .thank-you-card p {
+      font-size: 18px;
+      line-height: 1.6;
+      margin-bottom: var(--spacing-lg);
+      animation: fadeInUp 0.8s ease-out 0.4s both;
+    }
+    
+    .thank-you-actions {
+      display: flex;
+      gap: var(--spacing-md);
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeInUp 0.8s ease-out 0.5s both;
+    }
+    
+    .countdown {
+      font-size: 14px;
+      color: var(--color-text-secondary);
+      margin-top: var(--spacing-md);
+      animation: fadeInUp 0.8s ease-out 0.6s both;
+    }
+  </style>
+</head>
+<body>
+  <div class="thank-you-container">
+    <div class="thank-you-card">
+      <div class="thank-you-icon">✓</div>
+      <h1>Thank You!</h1>
+      <p>
+        Your message has been received successfully. 
+        Our team will review your inquiry and get back to you within 24 hours.
+      </p>
+      <p style="color: var(--color-text-secondary); font-size: 16px;">
+        If you need immediate assistance, please email us directly at<br>
+        <a href="mailto:terry.tsakiris@direct2client.com.au" style="color: var(--color-accent); text-decoration: none;">terry.tsakiris@direct2client.com.au</a>
+      </p>
+      <div class="thank-you-actions">
+        <a href="/" class="btn btn-primary">Back to Home</a>
+        <a href="https://www.atheryon.com.au" class="btn btn-secondary" target="_blank" rel="noopener">
+          Visit Atheryon
+        </a>
+      </div>
+      <div class="countdown" id="countdown">Redirecting to home page in <span id="seconds">10</span> seconds...</div>
+    </div>
+  </div>
+  
+  <script>
+    // Auto-redirect after 10 seconds
+    let seconds = 10;
+    const countdownElement = document.getElementById('seconds');
+    
+    const countdown = setInterval(() => {
+      seconds--;
+      if (countdownElement) {
+        countdownElement.textContent = seconds;
+      }
+      
+      if (seconds <= 0) {
+        clearInterval(countdown);
+        window.location.href = '/';
+      }
+    }, 1000);
+    
+    // Stop countdown if user interacts with the page
+    document.addEventListener('click', () => {
+      clearInterval(countdown);
+      const countdownDiv = document.getElementById('countdown');
+      if (countdownDiv) {
+        countdownDiv.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>
