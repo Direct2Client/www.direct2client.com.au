@@ -187,15 +187,20 @@
         <p class="lead">Whether you're looking to transform your financial operations or partner with us, we'd love to hear from you.</p>
       </div>
       <div class="contact-form">
-        <!-- Form uses Formspree for backend processing -->
-        <form action="https://formspree.io/f/xpwzykdk" method="POST">
-          <!-- Honeypot for spam protection -->
-          <input type="text" name="_gotcha" style="display:none">
-          <!-- Configure email subject and reply-to -->
-          <input type="hidden" name="_subject" value="New contact from Direct2Client website">
+        <!-- Form uses Web3Forms - instant setup, no account needed initially -->
+        <form action="https://api.web3forms.com/submit" method="POST">
+          <!-- Web3Forms Access Key - using public key for terry.tsakiris@direct2client.com.au -->
+          <input type="hidden" name="access_key" value="ea9ae562-0f97-4ed2-8c9d-c2c4ff17e8a3">
+          
+          <!-- Email Configuration -->
+          <input type="hidden" name="subject" value="New Contact from Direct2Client Website">
+          <input type="hidden" name="from_name" value="Direct2Client Website">
+          
           <!-- Redirect after submission (fallback if JS is disabled) -->
-          <input type="hidden" name="_next" value="https://happy-rock-0e827ed00.1.azurestaticapps.net/thank-you.html">
-          <!-- Note: Email forwarding to terry.tsakiris@direct2client.com.au must be configured in Formspree dashboard -->
+          <input type="hidden" name="redirect" value="https://happy-rock-0e827ed00.1.azurestaticapps.net/thank-you.html">
+          
+          <!-- Spam Protection -->
+          <input type="checkbox" name="botcheck" style="display:none;">
           <div class="form-group">
             <label class="form-label" for="name">Name</label>
             <input type="text" id="name" name="name" class="form-input" required>
@@ -283,7 +288,7 @@
     
     // Handle form submission
     document.addEventListener('DOMContentLoaded', function() {
-      const form = document.querySelector('form[action*="formspree"]');
+      const form = document.querySelector('form[action*="web3forms"]');
       const formStatus = document.getElementById('form-status');
       
       if (form) {
