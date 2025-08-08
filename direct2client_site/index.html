@@ -187,11 +187,10 @@
         <p class="lead">Whether you're looking to transform your financial operations or partner with us, we'd love to hear from you.</p>
       </div>
       <div class="contact-form">
-        <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-          <input type="hidden" name="form-name" value="contact">
-          <div style="display:none">
-            <label>Don't fill this out: <input name="bot-field"></label>
-          </div>
+        <!-- Form uses Formspree for backend processing -->
+        <form action="https://formspree.io/f/xpwzykdk" method="POST">
+          <!-- Honeypot for spam protection -->
+          <input type="text" name="_gotcha" style="display:none">
           <div class="form-group">
             <label class="form-label" for="name">Name</label>
             <input type="text" id="name" name="name" class="form-input" required>
@@ -210,6 +209,9 @@
           </div>
           <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
         </form>
+        <div id="form-status" style="margin-top: var(--spacing-md); text-align: center; display: none;">
+          <p style="color: #4ade80; font-weight: 500;">Thank you! We'll be in touch soon.</p>
+        </div>
         <p style="text-align: center; margin-top: var(--spacing-lg); opacity: 0.8;">
           Or email us directly at <a href="mailto:hello@direct2client.com.au" style="color: var(--color-white);">hello@direct2client.com.au</a>
         </p>
@@ -273,6 +275,45 @@
       
       lastScroll = currentScroll;
     });
+    
+    // Handle form submission
+    const form = document.querySelector('form');
+    const formStatus = document.getElementById('form-status');
+    
+    if (form) {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const submitButton = form.querySelector('button[type="submit"]');
+        const originalText = submitButton.textContent;
+        submitButton.disabled = true;
+        submitButton.textContent = 'Sending...';
+        
+        try {
+          const response = await fetch(form.action, {
+            method: 'POST',
+            body: new FormData(form),
+            headers: {
+              'Accept': 'application/json'
+            }
+          });
+          
+          if (response.ok) {
+            form.reset();
+            form.style.display = 'none';
+            formStatus.style.display = 'block';
+            formStatus.innerHTML = '<p style="color: #4ade80; font-weight: 500;">✅ Thank you! We\'ll be in touch soon.</p>';
+          } else {
+            throw new Error('Form submission failed');
+          }
+        } catch (error) {
+          formStatus.style.display = 'block';
+          formStatus.innerHTML = '<p style="color: #f87171; font-weight: 500;">❌ Oops! Something went wrong. Please try again or email us directly.</p>';
+          submitButton.disabled = false;
+          submitButton.textContent = originalText;
+        }
+      });
+    }
   </script>
 </body>
 </html>

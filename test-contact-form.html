@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Form Test</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    .test-section {
+      background: white;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    h1 { color: #333; }
+    h2 { color: #666; font-size: 18px; }
+    .status { 
+      padding: 10px; 
+      margin: 10px 0; 
+      border-radius: 4px;
+      font-family: monospace;
+    }
+    .success { background: #d4edda; color: #155724; }
+    .error { background: #f8d7da; color: #721c24; }
+    .info { background: #d1ecf1; color: #0c5460; }
+    .warning { background: #fff3cd; color: #856404; }
+    button { 
+      padding: 10px 20px; 
+      margin: 5px;
+      border: none;
+      border-radius: 4px;
+      background: #007bff;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover { background: #0056b3; }
+    pre { 
+      background: #f4f4f4; 
+      padding: 10px; 
+      border-radius: 4px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>Contact Form Test Suite</h1>
+  
+  <div class="test-section">
+    <h2>Test 1: Check Form Structure</h2>
+    <button onclick="testFormStructure()">Run Test</button>
+    <div id="structure-result"></div>
+  </div>
+
+  <div class="test-section">
+    <h2>Test 2: Validate Form Attributes</h2>
+    <button onclick="testFormAttributes()">Run Test</button>
+    <div id="attributes-result"></div>
+  </div>
+
+  <div class="test-section">
+    <h2>Test 3: Test Form Submission (Simulated)</h2>
+    <button onclick="testFormSubmission()">Run Test</button>
+    <div id="submission-result"></div>
+  </div>
+
+  <div class="test-section">
+    <h2>Test 4: Check Azure Static Web Apps Configuration</h2>
+    <button onclick="testAzureConfig()">Run Test</button>
+    <div id="azure-result"></div>
+  </div>
+
+  <div class="test-section">
+    <h2>Test 5: Live Form Test</h2>
+    <p>This will open the actual site in a new window. Submit the form and observe the behavior.</p>
+    <button onclick="window.open('https://happy-rock-0e827ed00.1.azurestaticapps.net/#contact', '_blank')">Open Live Site</button>
+  </div>
+
+  <script>
+    async function testFormStructure() {
+      const resultDiv = document.getElementById('structure-result');
+      resultDiv.innerHTML = '<div class="status info">Loading site content...</div>';
+      
+      try {
+        const response = await fetch('/direct2client_site/index.html');
+        const html = await response.text();
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        
+        const form = doc.querySelector('form[name="contact"]');
+        const tests = [];
+        
+        tests.push({
+          name: 'Form exists',
+          passed: !!form,
+          details: form ? 'Form found with name="contact"' : 'Form not found'
+        });
+        
+        if (form) {
+          tests.push({
+            name: 'Has name field',
+            passed: !!form.querySelector('input[name="name"]'),
+            details: 'Name input field present'
+          });
+          
+          tests.push({
+            name: 'Has email field',
+            passed: !!form.querySelector('input[name="email"]'),
+            details: 'Email input field present'
+          });
+          
+          tests.push({
+            name: 'Has company field',
+            passed: !!form.querySelector('input[name="company"]'),
+            details: 'Company input field present'
+          });
+          
+          tests.push({
+            name: 'Has message field',
+            passed: !!form.querySelector('textarea[name="message"]'),
+            details: 'Message textarea present'
+          });
+          
+          tests.push({
+            name: 'Has submit button',
+            passed: !!form.querySelector('button[type="submit"]'),
+            details: 'Submit button present'
+          });
+        }
+        
+        displayResults(resultDiv, tests);
+      } catch (error) {
+        resultDiv.innerHTML = `<div class="status error">Error: ${error.message}</div>`;
+      }
+    }
+    
+    async function testFormAttributes() {
+      const resultDiv = document.getElementById('attributes-result');
+      resultDiv.innerHTML = '<div class="status info">Checking form attributes...</div>';
+      
+      try {
+        const response = await fetch('/direct2client_site/index.html');
+        const html = await response.text();
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        
+        const form = doc.querySelector('form[name="contact"]');
+        const tests = [];
+        
+        if (form) {
+          tests.push({
+            name: 'Method is POST',
+            passed: form.getAttribute('method') === 'POST',
+            details: `Method: ${form.getAttribute('method') || 'not set'}`
+          });
+          
+          tests.push({
+            name: 'Has data-netlify attribute',
+            passed: form.hasAttribute('data-netlify'),
+            details: `data-netlify="${form.getAttribute('data-netlify')}"`
+          });
+          
+          tests.push({
+            name: 'Has form-name hidden field',
+            passed: !!form.querySelector('input[name="form-name"][type="hidden"]'),
+            details: 'Hidden form-name field present'
+          });
+          
+          tests.push({
+            name: 'Has honeypot field',
+            passed: form.hasAttribute('netlify-honeypot'),
+            details: `Honeypot: ${form.getAttribute('netlify-honeypot') || 'not set'}`
+          });
+          
+          tests.push({
+            name: 'No action attribute (for client-side handling)',
+            passed: !form.hasAttribute('action') || form.getAttribute('action') === '',
+            details: `Action: ${form.getAttribute('action') || 'not set (good for SPA)'}`
+          });
+        }
+        
+        displayResults(resultDiv, tests);
+      } catch (error) {
+        resultDiv.innerHTML = `<div class="status error">Error: ${error.message}</div>`;
+      }
+    }
+    
+    function testFormSubmission() {
+      const resultDiv = document.getElementById('submission-result');
+      resultDiv.innerHTML = '';
+      
+      const warnings = [
+        {
+          title: 'Azure Static Web Apps Form Handling',
+          message: 'Azure Static Web Apps does NOT have built-in form handling like Netlify Forms.',
+          severity: 'warning'
+        },
+        {
+          title: 'Current Configuration Issue',
+          message: 'The form uses data-netlify="true" which only works on Netlify hosting, not Azure.',
+          severity: 'error'
+        },
+        {
+          title: 'Solution Required',
+          message: 'You need to either: 1) Add an Azure Function to handle form submissions, 2) Use a third-party service like Formspree, or 3) Remove the form functionality',
+          severity: 'info'
+        }
+      ];
+      
+      warnings.forEach(warning => {
+        resultDiv.innerHTML += `
+          <div class="status ${warning.severity}">
+            <strong>${warning.title}</strong><br>
+            ${warning.message}
+          </div>
+        `;
+      });
+      
+      resultDiv.innerHTML += `
+        <div class="status info">
+          <strong>Recommended Fix:</strong><br>
+          <pre>
+Option 1: Use Formspree (easiest)
+- Replace form action with: action="https://formspree.io/f/YOUR_FORM_ID"
+- Remove data-netlify and netlify-honeypot attributes
+
+Option 2: Azure Function (more control)
+- Create an Azure Function to handle POST requests
+- Update form to submit to your function endpoint
+
+Option 3: Remove form
+- Replace with mailto link only
+          </pre>
+        </div>
+      `;
+    }
+    
+    function testAzureConfig() {
+      const resultDiv = document.getElementById('azure-result');
+      resultDiv.innerHTML = `
+        <div class="status info">
+          <strong>Azure Static Web Apps Configuration</strong><br>
+          Static Web Apps supports:
+          <ul>
+            <li>✅ Static file hosting</li>
+            <li>✅ Custom domains & SSL</li>
+            <li>✅ API routes (via Azure Functions)</li>
+            <li>❌ Built-in form handling (unlike Netlify)</li>
+          </ul>
+        </div>
+        <div class="status warning">
+          <strong>Form Configuration Needed</strong><br>
+          To make the contact form work on Azure, you need to configure an API endpoint or use a third-party service.
+        </div>
+      `;
+    }
+    
+    function displayResults(container, tests) {
+      container.innerHTML = '';
+      const allPassed = tests.every(t => t.passed);
+      
+      container.innerHTML = `
+        <div class="status ${allPassed ? 'success' : 'warning'}">
+          Overall: ${tests.filter(t => t.passed).length}/${tests.length} tests passed
+        </div>
+      `;
+      
+      tests.forEach(test => {
+        container.innerHTML += `
+          <div class="status ${test.passed ? 'success' : 'error'}">
+            ${test.passed ? '✅' : '❌'} ${test.name}: ${test.details}
+          </div>
+        `;
+      });
+    }
+  </script>
+</body>
+</html>
