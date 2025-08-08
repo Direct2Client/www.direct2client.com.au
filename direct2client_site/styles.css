@@ -1,0 +1,15 @@
+:root {
+  --brand-accent: #F28C28;
+  --brand-accent-2: #2F6FEB;
+  --brand-dark: #0C1222;
+  --ink: #0f172a;
+  --muted: #475569;
+  --bg: #ffffff;
+  --bg-alt: #f8fafc;
+  --card: #ffffff;
+  --radius: 16px;
+  --shadow: 0 6px 24px rgba(2, 6, 23, 0.08);
+}
+
+:root {
+  --brand-accent: #2F6FEB; /* TODO: replace with Atheryon accent 

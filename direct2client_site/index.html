@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Direct2Client — Parent company of Atheryon</title>
+  <meta name="description" content="Direct2Client — enabling cleaner data and smarter systems across our portfolio, including Atheryon.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <div class="brand"><img src="Atheryon_Logo_Light.png" alt="Atheryon Logo" style="height:40px;">
+        <!-- Replace with your SVG/PNG logo -->
+        <div class="logo">D2C</div>
+        <div class="brand-text">
+          <strong>Direct2Client</strong>
+          <span class="sub">Parent company of Atheryon</span>
+        </div>
+      </div>
+      <nav>
+        <a href="#what-we-do">What we do</a>
+        <a href="#who-we-serve">Who we serve</a>
+        <a href="#atheryon">Atheryon</a>
+        <a href="#contact" class="btn btn-primary">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" style="background: var(--bg);">
+      <div class="container">
+        <h1>Cleaner data. Smarter systems. Stronger finance.</h1>
+        <p class="lead">
+          Direct2Client builds and backs companies that simplify complex financial operations.
+          Our portfolio includes <strong>Atheryon</strong> — the financial intelligence company
+          focused on resilient, auditable data and agentic automation.
+        </p>
+        <div class="cta">
+          <a href="#contact" class="btn btn-primary">Talk to us</a>
+          <a href="https://www.atheryon.com.au" id="atheryon" class="btn btn-ghost" target="_blank" rel="noopener">Visit Atheryon</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="what-we-do" class="section">
+      <div class="container grid-3">
+        <div class="card">
+          <h3>Intelligent data layer</h3>
+          <p>We start by cleaning and governing the data foundation — because resilience and speed both depend on it.</p>
+        </div>
+        <div class="card">
+          <h3>Agentic automation</h3>
+          <p>Autonomous monitoring, self‑optimising processes, and faster delivery — with auditable control.</p>
+        </div>
+        <div class="card">
+          <h3>Portfolio synergies</h3>
+          <p>We share patterns, platforms, and controls across brands to reduce risk and accelerate outcomes.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="who-we-serve" class="section alt">
+      <div class="container">
+        <h2>Who we serve</h2>
+        <ul class="pill-list">
+          <li>Banks & Capital Markets</li>
+          <li>Asset & Wealth Managers</li>
+          <li>Insurers & Trustees</li>
+          <li>Regulatory & Risk Functions</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2>Why Direct2Client</h2>
+        <div class="grid-3">
+          <div class="mini-card">
+            <h4>Industrial-grade rigor</h4>
+            <p>Engineered thinking applied to financial systems — reliability first, then speed.</p>
+          </div>
+          <div class="mini-card">
+            <h4>Measured innovation</h4>
+            <p>Modern AI patterns without fragility: evidence, explainability, and governance built-in.</p>
+          </div>
+          <div class="mini-card">
+            <h4>Proven delivery</h4>
+            <p>Track record across global banks: near real-time risk, surveillance, and data remediation.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section alt">
+      <div class="container">
+        <h2>Contact</h2>
+        <p>Prefer email? Reach us at <a href="mailto:hello@direct2client.com.au">hello@direct2client.com.au</a>.</p>
+        <form name="contact" method="post" data-netlify="true" class="contact-form">
+          <input type="hidden" name="form-name" value="contact">
+          <div class="form-row">
+            <label>Name</label>
+            <input name="name" required>
+          </div>
+          <div class="form-row">
+            <label>Email</label>
+            <input name="email" type="email" required>
+          </div>
+          <div class="form-row">
+            <label>Message</label>
+            <textarea name="message" rows="4" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Send</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" style="background: var(--bg);">
+    <div class="container">
+      <span>© <span id="year"></span> Direct2Client Pty Ltd • Sydney</span>
+      <span>Part of the <a href="https://www.atheryon.com.au" target="_blank" rel="noopener">Atheryon</a> family</span>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
