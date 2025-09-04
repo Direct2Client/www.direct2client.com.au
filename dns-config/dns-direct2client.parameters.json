@@ -1,0 +1,16 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "zoneName": { "value": "direct2client.com.au" },
+    "rootIPv4": { "value": "13.107.246.31" },
+    "wwwTarget": { "value": "atheryon-e0eteegvahafd3e7.z03.azurefd.net" },
+    "mxHost": { "value": "direct2client-com-au.mail.protection.outlook.com" },
+    "spf": { "value": "v=spf1 include:spf.protection.outlook.com -all" },
+    "msVerify": { "value": "MS=ms51081858" },
+    "dmarc": { "value": "v=DMARC1; p=reject; rua=mailto:postmaster@direct2client.com.au" },
+    "dkimSel1Target": { "value": "selector1-direct2client-com-au._domainkey.y.netorgft1876138.q-v1.dkim.mail.microsoft.com" },
+    "dkimSel2Target": { "value": "selector2-direct2client-com-au._domainkey.y.netorgft1876138.q-v1.dkim.mail.microsoft.com" },
+    "ttl": { "value": 3600 }
+  }
+}
