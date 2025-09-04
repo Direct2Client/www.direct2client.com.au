@@ -1,0 +1,22 @@
+# login is assumed done; pick subscription
+az account set --subscription "$SUBSCRIPTION"
+
+# ensure RG exists (idempotent)
+az group create --name "$RG" --location "$LOCATION" >/dev/null
+
+# deploy bicep
+az deployment group create \
+  --resource-group "$RG" \
+  --template-file "$BICEP" \
+  --parameters @"$PARAMS"
+
+# show nameservers we’ll switch to at INSTRA
+echo ">>> Azure NS:"
+az network dns zone show -g "$RG" -n "$ZONE" --query nameServers -o tsv
+
+# quick sanity checks directly against Azure NS (optional)
+NS=$(az network dns zone show -g "$RG" -n "$ZONE" --query nameServers[0] -o tsv)
+echo ">>> Testing against $NS"
+dig @"$NS" "$ZONE" MX +short
+dig @"$NS" www."$ZONE" CNAME +short
+dig @"$NS" "$ZONE" TXT +short
